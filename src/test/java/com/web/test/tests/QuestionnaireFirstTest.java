@@ -17,6 +17,13 @@ public class QuestionnaireFirstTest extends AbstractTest {
 
     @Test
     public void questionnaireFirstTest() {
-//test
+        questionnaireFirstPage.enterQuestionnaire();
+        questionnaireFirstPage.enterBirthDate();
+//        questionnaireFirstPage.enterNationality();
+        questionnaireFirstPage.enterPesel();
+        questionnaireFirstPage.enterName();
+        questionnaireFirstPage.enterSurname();
+        questionnaireFirstPage.enterEmail();
+        questionnaireFirstPage.enterPhoneNumber();
     }
 }

@@ -20,7 +20,6 @@ public class LoginTest extends AbstractTest {
 
     @Test
     public void loginTest() {
-        BaseTest.setRegisterTime(LocalDateTime.now());
         loginPage.enterLogin();
         loginPage.enterPassword(BaseTest.getRegisterTime());
         loginPage.clickLogin();

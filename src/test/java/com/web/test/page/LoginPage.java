@@ -34,12 +34,13 @@ public class LoginPage extends AbstractPage {
 
             for (String sms : recentSms) {
                 String[] parts = sms.split(";");
+
                 if (parts.length < 3) continue;
 
                 LocalDateTime smsDate = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 String phoneNumber = "48" + jsonHandler.getStrFromJson("phoneNumber");
 
-                if (smsDate.isAfter(registerTime) && parts[2].equals(phoneNumber)) {
+                if (registerTime.isBefore(smsDate) && parts[2].equals(phoneNumber)) {
                     String password = parts[0].replace("[DEV] Czesc! Twoje haslo do Tikrow to: ", "");
                     atomicPassword.set(password);
                     return true;
@@ -48,13 +49,13 @@ public class LoginPage extends AbstractPage {
             System.out.println("Próbuję pobrać hasło...");
             return false;
         });
-        System.out.println("Udało się pobrać hasło!");
+        String password = atomicPassword.get();
+        System.out.println("Udało się pobrać hasło: " + password);
         database.disconnect();
-        driver.findElement(By.xpath("//input[@placeholder='Hasło']")).sendKeys(atomicPassword.get());
+        driver.findElement(By.xpath("//input[@placeholder='Hasło']")).sendKeys(password);
     }
 
     public void clickLogin() {
         driver.findElement(By.cssSelector("button.css-175oi2r:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)")).click();
-        implicitWait(10000);
     }
 }

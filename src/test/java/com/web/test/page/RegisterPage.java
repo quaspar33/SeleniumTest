@@ -1,10 +1,13 @@
 package com.web.test.page;
 
 import com.web.test.AbstractPage;
+import com.web.test.BaseTest;
 import com.web.test.JsonHandler;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.time.LocalDateTime;
 
 public class RegisterPage extends AbstractPage {
     JsonHandler jsonHandler;
@@ -32,6 +35,7 @@ public class RegisterPage extends AbstractPage {
     }
 
     public void createAccount() {
+        BaseTest.setRegisterTime(LocalDateTime.now());
         driver.findElement(By.cssSelector(".r-jwli3a")).click();
     }
 }
