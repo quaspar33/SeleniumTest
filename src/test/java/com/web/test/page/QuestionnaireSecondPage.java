@@ -15,7 +15,7 @@ public class QuestionnaireSecondPage extends AbstractPage {
     }
 
     public void nextPage() {
-        implicitWait(1000);
+        implicitWait(2000);
         driver.findElement(By.xpath("//*[contains(text(), 'Dalej')]")).click();
     }
 }
