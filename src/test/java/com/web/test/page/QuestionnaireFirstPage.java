@@ -66,6 +66,7 @@ public class QuestionnaireFirstPage extends AbstractPage {
         WebElement phoneNumber = driver.findElement(By.xpath("//input[@placeholder='123456789']"));
         scroll(phoneNumber, 1500);
         phoneNumber.sendKeys(jsonHandler.getStrFromJson("phoneNumber"));
+        implicitWait(1000);
     }
 
     public void enterTaxOffice() {
@@ -80,9 +81,11 @@ public class QuestionnaireFirstPage extends AbstractPage {
 
     public void enterAddress() {
         addressMap.forEach((key, value) -> {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(key)).sendKeys(jsonHandler.getStrFromJson(value));
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(key));
+            scroll(element, 300);
+            element.sendKeys(jsonHandler.getStrFromJson(value));
             if (!value.equals("buildingNumber")) {
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[contains(text(), '%s')]", value))));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//*[contains(text(), '%s')]", jsonHandler.getStrFromJson(value))))).click();
             }
         });
     }

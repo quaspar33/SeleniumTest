@@ -41,8 +41,6 @@ public class LoginPage extends AbstractPage {
                 LocalDateTime smsDate = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                 String phoneNumber = parts[2];
 
-                System.out.println("Register time: " + registerTime.withNano(0) + ", SmsDate: " + smsDate);
-
                 if ((registerTime.withNano(0).isBefore(smsDate) || registerTime.withNano(0).isEqual(smsDate)) && phoneNumber.equals("48".concat(jsonHandler.getStrFromJson("phoneNumber")))) {
                     atomicPassword.set(password);
                     return true;
