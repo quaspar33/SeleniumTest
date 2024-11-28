@@ -2,6 +2,7 @@ package com.web.test.page;
 
 import com.web.test.AbstractPage;
 import com.web.test.JsonHandler;
+import com.web.test.PasswordFromSmsParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,19 +35,19 @@ public class LoginPage extends AbstractPage {
 
             for (String sms : recentSms) {
                 String[] parts = sms.split(";");
-
                 if (parts.length < 3) continue;
 
+                String password = new PasswordFromSmsParser().parse(parts[0]);
                 LocalDateTime smsDate = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                String phoneNumber = "48" + jsonHandler.getStrFromJson("phoneNumber");
+                String phoneNumber = parts[2];
 
-                if (registerTime.isBefore(smsDate) && parts[2].equals(phoneNumber)) {
-                    String password = parts[0].replace("[DEV] Czesc! Twoje haslo do Tikrow to: ", "");
+                System.out.println("Register time: " + registerTime.withNano(0) + ", SmsDate: " + smsDate);
+
+                if ((registerTime.withNano(0).isBefore(smsDate) || registerTime.withNano(0).isEqual(smsDate)) && phoneNumber.equals("48".concat(jsonHandler.getStrFromJson("phoneNumber")))) {
                     atomicPassword.set(password);
                     return true;
                 }
             }
-            System.out.println("Próbuję pobrać hasło...");
             return false;
         });
         String password = atomicPassword.get();

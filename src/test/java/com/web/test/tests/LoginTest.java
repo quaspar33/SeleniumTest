@@ -6,10 +6,8 @@ import com.web.test.page.LoginPage;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
-
 public class LoginTest extends AbstractTest {
-    LoginPage loginPage;
+    private LoginPage loginPage;
 
     @BeforeClass
     @Override
