@@ -1,13 +1,17 @@
 package com.web.test.page;
 
 import com.web.test.AbstractPage;
+import com.web.test.MavenRunner;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class QuestionnaireThirdPage extends AbstractPage {
+    MavenRunner mavenRunner;
+
     public QuestionnaireThirdPage(WebDriver driver) {
         super(driver);
+        mavenRunner = new MavenRunner();
     }
 
     public void acceptVerify() {
@@ -17,5 +21,6 @@ public class QuestionnaireThirdPage extends AbstractPage {
     public void endQuestionnaire() {
         implicitWait(2000);
         driver.findElement(By.xpath("//*[contains(text(), 'Zakończ')]")).click();
+        mavenRunner.run();
     }
 }

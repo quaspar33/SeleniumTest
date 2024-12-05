@@ -9,8 +9,7 @@
             <class name="com.web.test.tests.QuestionnaireFirstTest"/>
             <class name="com.web.test.tests.QuestionnaireSecondTest"/>
             <class name="com.web.test.tests.QuestionnaireThirdTest"/>
-<!--            <class name="com.web.test.VerifyPartnerTest"/>-->
-<!--            <class name="com.web.test.tests.AcceptCommissionTest"/>-->
+            <class name="com.web.test.tests.AcceptCommissionTest"/>
         </classes>
     </test>
 </suite>

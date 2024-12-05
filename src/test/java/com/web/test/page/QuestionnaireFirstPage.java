@@ -69,8 +69,8 @@ public class QuestionnaireFirstPage extends AbstractPage {
     }
 
     public void enterTaxOffice() {
+        implicitWait(1000);
         driver.findElement(By.cssSelector("div.r-1xuzw63:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > svg:nth-child(1)")).click();
-        implicitWait(500);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Urząd Skarbowy Poznań-Wilda 61-558, Dolna Wilda 80')]"))).click();
     }
 

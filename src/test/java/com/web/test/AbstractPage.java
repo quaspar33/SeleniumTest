@@ -50,4 +50,8 @@ public abstract class AbstractPage {
                 .scrollFromOrigin(scrollOrigin, 0, yOffset)
                 .perform();
     }
+
+    public void refreshApp() {
+        driver.navigate().refresh();
+    }
 }
