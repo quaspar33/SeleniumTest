@@ -1,10 +1,10 @@
 package com.web.test;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.interactions.WheelInput;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -49,6 +49,17 @@ public abstract class AbstractPage {
         new Actions(driver)
                 .scrollFromOrigin(scrollOrigin, 0, yOffset)
                 .perform();
+    }
+
+    public void touchFromElement(WebElement element, int xOffset, int yOffset) {
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element, xOffset, yOffset).click().perform();
+        } catch (MoveTargetOutOfBoundsException e) {
+            System.err.println("Nie udało się przesunąć kursora - współrzędne są poza ekranem.");
+        } catch (Exception e) {
+            System.err.println("Nie udało się wykonać akcji: " + e.getMessage());
+        }
     }
 
     public void refreshApp() {
