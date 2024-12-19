@@ -52,14 +52,10 @@ public abstract class AbstractPage {
     }
 
     public void touchFromElement(WebElement element, int xOffset, int yOffset) {
-        try {
-            Actions actions = new Actions(driver);
-            actions.moveToElement(element, xOffset, yOffset).click().perform();
-        } catch (MoveTargetOutOfBoundsException e) {
-            System.err.println("Nie udało się przesunąć kursora - współrzędne są poza ekranem.");
-        } catch (Exception e) {
-            System.err.println("Nie udało się wykonać akcji: " + e.getMessage());
-        }
+        new Actions(driver).moveToElement(element, xOffset, yOffset)
+                .click()
+                .build()
+                .perform();
     }
 
     public void refreshApp() {
