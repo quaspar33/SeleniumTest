@@ -18,15 +18,16 @@ public class AcceptCommissionPage extends AbstractPage {
         commissionDay = currentDate.plusDays(13).getDayOfMonth();
         database.connect();
         commissionsCount = database.queryForCommission("select count(*) as 'commissions' from tikrow_dev.commissions where startDate > CURRENT_DATE and startDate < DATE_ADD(CURRENT_DATE, INTERVAL 29 DAY) and taken = 0");
-        System.out.printf("Liczba zleceń w zakresie dni w aplikacji: %s", commissionsCount);
+        System.out.printf("Liczba zleceń w zakresie dni w aplikacji: %s\n", commissionsCount);
         database.disconnect();
         System.out.println("Rozpoczynam test przyjęcia zlecenia!");
     }
 
     public void clickCommission() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(), 'Start')]"))).click();
+        implicitWait(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[text() = 'Start']"))).click();
         if (commissionsCount > 0) {
-            touchFromElement(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format("//*[text() = '%s']", commissionDay)))), 0, 1200);
+            touchFromElement(wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(String.format("//*[text() = '%s']", commissionDay)))), 0, 330);
         } else {
             apiHandler.POST(
                     jsonHandler.getStrFromJson("uri"),
