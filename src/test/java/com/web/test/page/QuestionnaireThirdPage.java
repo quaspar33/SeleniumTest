@@ -19,8 +19,8 @@ public class QuestionnaireThirdPage extends AbstractPage {
     }
 
     public void endQuestionnaire() {
-        implicitWait(2000);
-        driver.findElement(By.xpath("//*[contains(text(), 'Zakończ')]")).click();
+        implicitWait(3000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(), 'Zakończ')]"))).click();
         mavenRunner.run();
     }
 }
