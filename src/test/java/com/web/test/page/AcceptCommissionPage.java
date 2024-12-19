@@ -7,15 +7,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.LocalDate;
+
 public class AcceptCommissionPage extends AbstractPage {
     private JsonHandler jsonHandler;
+    private LocalDate commissionDate;
     private int commissionDay;
+    private int commissionMonth;
+    private int commissionYear;
     private int commissionsCount;
 
     public AcceptCommissionPage(WebDriver driver) {
         super(driver);
         jsonHandler = new JsonHandler("accept_commission.json");
-        commissionDay = currentDate.plusDays(13).getDayOfMonth();
+        commissionDate = currentDate.plusDays(13);
+        commissionDay = commissionDate.getDayOfMonth();
+        commissionMonth = commissionDate.getMonthValue();
+        commissionYear = commissionDate.getYear();
         database.connect();
         commissionsCount = database.queryForCommission("select count(*) as 'commissions' from tikrow_dev.commissions where startDate > CURRENT_DATE and startDate < DATE_ADD(CURRENT_DATE, INTERVAL 29 DAY) and taken = 0");
         System.out.printf("Liczba zleceń w zakresie dni w aplikacji: %s\n", commissionsCount);
@@ -33,8 +41,8 @@ public class AcceptCommissionPage extends AbstractPage {
                     jsonHandler.getStrFromJson("uri"),
                     String.format(
                             "{\"employees_per_day\":1,\"hours\":1,\"start_time\":\"08:00\",\"dates\":[\"%d-%02d-%02d\"],\"region\":\"4809\",\"location\":\"460\",\"commission\":\"1463\"}",
-                            currentYear,
-                            currentMonth,
+                            commissionYear,
+                            commissionMonth,
                             commissionDay
                     ),
                     jsonHandler.getStrFromJson("auth")
