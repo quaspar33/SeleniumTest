@@ -49,7 +49,7 @@ public class AcceptCommissionPage extends AbstractPage {
             );
             System.out.println("Wystawiono zlecenie!");
             refreshApp();
-            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[contains(text(), 'Zlecenie 2024')]")))).click();
+            wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[contains(text(), 'Zlecenie 2025')]")))).click();
         }
     }
 
